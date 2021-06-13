@@ -1,5 +1,5 @@
 import tensorflow.keras
-from PIL import Image, ImageOps
+from PIL import Image
 import numpy as np
 from bt import *
 import time
