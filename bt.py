@@ -37,7 +37,7 @@ def configure_bluetooth_device():
 def create_connection(conn):
     try:
         conn['socket'].connect((conn['baddr'], conn['port']))
-        return socket, False, "Connection Established Successfully!"
+        return conn['socket'], False, "Connection Established Successfully!"
     except:
         return {}, True, "Connection Failed!"
 

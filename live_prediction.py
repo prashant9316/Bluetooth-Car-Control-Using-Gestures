@@ -54,8 +54,19 @@ while True:
     data[0] = normalized_image_array
 
 
-    curr_pred = np.argmax(model.predict(data))
-    curr_label = LABELS[curr_pred]
+    temp = model.predict(data)
+    index = np.argmax(temp)
+    print(temp)
+    print(index)
+    
+    # print(curr_pred.shape)
+    # curr_pred = np.argmax(curr_pred)
+    if(temp[0][index] > 0.70):
+        curr_pred = temp[0][index]
+    else:
+        continue
+
+    curr_label = LABELS[index]
     print("PRED: ", curr_label)
 
     if(curr_pred != prev_pred):
@@ -68,9 +79,15 @@ while True:
         
 
     prev_pred = curr_pred
-    time.sleep(0.1)
+    # time.sleep(1)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
+        try:
+            error, msg = send_message(connection['socket'], 4)
+            if error:
+                print("Error Sending message!!")
+        except:
+            print("Error Sending message!!")
         break
 
 video_capture.release()
